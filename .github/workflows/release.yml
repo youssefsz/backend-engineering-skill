@@ -1,0 +1,55 @@
+name: Release skill
+
+"on":
+  push:
+    tags:
+      - "v[0-9]*.[0-9]*.[0-9]*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          version: "0.9.26"
+          enable-cache: false
+      - name: Install repository checks
+        run: uv sync --locked
+      - name: Validate documentation and package invariants
+        run: uv run --locked python scripts/validate.py
+      - name: Exercise validator and archive protections
+        run: uv run --locked python -m unittest discover -s tests -v
+      - name: Build release assets and check version metadata
+        run: uv run --locked python scripts/package.py --tag "$RELEASE_TAG"
+      - name: Publish release with downloads and generated notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          archive="dist/backend-engineering-${RELEASE_TAG}.zip"
+          gh release create "$RELEASE_TAG" \
+            "$archive" "$archive.sha256" \
+            --verify-tag \
+            --title "Backend Engineering Skill ${RELEASE_TAG}" \
+            --notes-file dist/release-notes.md \
+            --generate-notes

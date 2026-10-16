@@ -1,0 +1,18 @@
+changelog:
+  categories:
+    - title: Skill improvements
+      labels:
+        - enhancement
+    - title: Fixes
+      labels:
+        - bug
+    - title: Documentation
+      labels:
+        - documentation
+    - title: Maintenance
+      labels:
+        - maintenance
+        - dependencies
+    - title: Other changes
+      labels:
+        - "*"
