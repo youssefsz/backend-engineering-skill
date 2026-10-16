@@ -1,13 +1,14 @@
-# Local validation record
+# Validation evidence
 
 Date: 2026-10-16. This record covers repository-maintenance checks, not backend
 engineering effectiveness. Execution host was macOS, Python 3.14.2, uv 0.9.26,
 in Codex desktop. No model identifier was recorded for an independent agent run
-because no such run occurred. GitHub-hosted CI has not been executed.
+because no such run occurred. This opening record describes the initial local
+checks; the hosted publication results appear below.
 
 ## Revision and environment
 
-Planned skill version: 0.1.0, unreleased, with no initial commit at validation time.
+At initial local validation, version 0.1.0 was unreleased and had no initial commit.
 The canonical skill tree digest is
 `591b246fbce8e7300e4a587191895e2392ce3a9cb3643c71036466cb075a7002`.
 Compute it by sorting all file paths under `skills/backend-engineering`, then
@@ -53,7 +54,7 @@ consumers were updated. `.venv/` remains ignored.
 | E01–E14 engineering quality | NOT RUN | No isolated, versioned application fixture runner was established |
 | E02/E03/E07 matched baselines | NOT RUN | Prepare matched independent repositories/databases and follow the evaluator contracts |
 | Two-language effectiveness | NOT RUN | No cross-ecosystem runs occurred; no effectiveness claim is supported |
-| GitHub Actions execution | NOT RUN | Workflow prepared locally; no remote repository or workflow run was published |
+| GitHub Actions execution | PASS | See the hosted validation and release results below |
 
 These states are not passes. The [evaluation procedure](README.md) and
 [case contracts](engineering-cases.md) describe reproducible setup and acceptance.
@@ -80,7 +81,36 @@ archive recheck. Its 15 extracted files matched the canonical skill, the checksu
 matched the ZIP, and the notes included the matching highlights. The canonical skill
 and its archive digest above did not change.
 
-Live GitHub publication, generated contributor/PR attribution, and hosted workflow
-execution remain NOT RUN. The repository has no remote or published release from
-this work. Follow the [release procedure](../CONTRIBUTING.md#tag-a-release) for the
-first deliberate tag push after review.
+At the release-automation preparation stage, live publication and hosted execution
+were NOT RUN. The first publication results are recorded below. The
+[release procedure](../CONTRIBUTING.md#tag-a-release) describes future versions.
+
+## GitHub publication checks
+
+On 2026-10-16, the repository was published publicly as
+[youssefsz/backend-engineering-skill](https://github.com/youssefsz/backend-engineering-skill).
+The release commit is `6402d267977d9dc1a42597671be58300872485ce`.
+The tagged skill contents match the canonical tree digest recorded above.
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Hosted branch validation | PASS | [Validation run](https://github.com/youssefsz/backend-engineering-skill/actions/runs/38955124119), including all 30 tests and extracted archive validation |
+| Tag-triggered release | PASS | [Release run](https://github.com/youssefsz/backend-engineering-skill/actions/runs/38955281297) ran checks and published v0.1.0 automatically |
+| Published assets | PASS | [v0.1.0](https://github.com/youssefsz/backend-engineering-skill/releases/tag/v0.1.0) contains the ZIP and SHA-256 file |
+| Public downloads | PASS | Both assets downloaded with anonymous curl requests; checksum, GitHub asset digest, and actual ZIP bytes agree |
+| Downloaded package | PASS | `uv run --locked python scripts/package.py --check dist/published-v0.1.0/backend-engineering-v0.1.0.zip` extracted and matched all 15 files |
+| Published notes | PASS | Actual release body contains changelog highlights, download instructions, and a GitHub-generated full changelog link |
+| External URLs | PASS | 66 URLs were reachable during the publication check; badge SVG labels were checked separately |
+| README presentation | PASS | Rendered GitHub README inspected in a browser, with working navigation and live badges |
+
+The downloaded ZIP SHA-256 is
+`ca91be8b9269a9ca57378315c74ade6b3f319196a77caf3cdb3e7a4f53b89e81`.
+The release badge uses Shields' dynamic JSON endpoint because its GitHub-specific
+endpoint returned an intermittent token-pool error. The tested endpoint reads the
+actual public latest-release API. The badge values observed were validation passing,
+release v0.1.0, MIT license, and Agent Skills standard.
+
+There were no merged PRs before this initial release. GitHub generated the full
+commit-history link; PR categorization and first-contributor sections remain
+unexercised with real PR history. The host activation and backend engineering
+scenarios above remain NOT RUN. Publication checks do not establish those outcomes.

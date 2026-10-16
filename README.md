@@ -3,7 +3,7 @@
 Build and extend backends with correctness, security, and failure handling considered from the first decision.
 
 [![Validation](https://img.shields.io/github/actions/workflow/status/youssefsz/backend-engineering-skill/validate.yml?branch=main&style=flat-square&label=validation)](https://github.com/youssefsz/backend-engineering-skill/actions/workflows/validate.yml)
-[![Latest release](https://img.shields.io/github/v/release/youssefsz/backend-engineering-skill?style=flat-square&color=2563eb)](https://github.com/youssefsz/backend-engineering-skill/releases/latest)
+[![Latest release](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Fyoussefsz%2Fbackend-engineering-skill%2Freleases%2Flatest&query=%24.tag_name&label=release&style=flat-square&color=2563eb)](https://github.com/youssefsz/backend-engineering-skill/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-16a34a?style=flat-square)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/Agent_Skills-standard-475569?style=flat-square)](https://agentskills.io/specification)
 
